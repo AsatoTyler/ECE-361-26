@@ -33,6 +33,23 @@ uint32_t set_field(uint32_t word, int pos, int width, uint32_t value) {
     uint32_t shifted_value = value & mask;
 
     uint32_t shifted_word = word & ~(mask << pos);
-    
+
     return shifted_word | (shifted_value << pos);
+}
+
+int32_t sign_extend(uint32_t value, int width) {
+    if (width < 1 || width > 32) {
+        return 0;
+    }
+
+    if (width == 32) {
+        return (int32_t)value;
+    }
+
+    uint32_t sign_bit = (value >> (width - 1)) & 1;
+
+    if (sign_bit) {
+        value |= 0xFFFFFFFF << width;
+    }
+    return (int32_t)value;
 }
