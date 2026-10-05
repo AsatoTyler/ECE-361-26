@@ -23,3 +23,16 @@ uint32_t get_field(uint32_t word, int pos, int width) {
     return shifted_word & mask;
 }
 
+uint32_t set_field(uint32_t word, int pos, int width, uint32_t value) {
+    if (pos < 0 || pos > 32 || width < 1 || width > 32 || pos + width > 32) {
+        return word;
+    }
+
+    uint32_t mask = (1ULL << width) - 1;
+
+    uint32_t shifted_value = value & mask;
+
+    uint32_t shifted_word = word & ~(mask << pos);
+    
+    return shifted_word | (shifted_value << pos);
+}
