@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "../bits.h"
+#include "../status.h"
 
 int failed_tests = 0;
 
@@ -40,6 +41,19 @@ int main(void) {
     check(sign_extend(0x80000000, 32), -2147483648, "sign_extend: most negative 32-bit value (0x80000000, 32)");
     printf("\n");
 
+    printf("--Testing status_unpack--\n");
+    status_t status = status_unpack(0x1631);
+    printf("Expected: Setpoint: 22, Mode: 3, Heat: 1, Cool: 0, Fan: 0, Fault: 0, Reserved: 0\n");
+    printf("Actual  : Setpoint: %d, Mode: %d, Heat: %d, Cool: %d, Fan: %d, Fault: %d, Reserved: %d\n",
+        status.setpoint, status.mode, status.heat, status.cool, status.fan, status.fault, status.reserved);
+    
+    // Testing mode 5, which should force mode 0
+    status_t status2 = status_unpack(0x1651);
+    printf("Expected: Mode: 0\n");
+    printf("Actual  : Mode: %d\n",
+        status2.mode);
+    printf("\n");
+
     printf("--Test Summary--\n");
     if (failed_tests == 0) {
         printf("All Tests Passed!\n");
@@ -48,4 +62,5 @@ int main(void) {
         printf("Failed Tests: %d\n", failed_tests);
         return 1;
     }
+
 }
