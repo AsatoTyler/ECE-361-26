@@ -32,7 +32,7 @@ int main(void) {
     printf("--Testing set_field--\n");
     check(set_field(0x00000000, 0, 32, 0xFFFFFFFF), 0xFFFFFFFF, "set_field: width 32 boundary");
     check(set_field(0xFFFFFFFF, 31, 1, 0), 0x7FFFFFFF, "set_field: width 1, pos 31 boundary");
-    check(set_field(0x00000000, 4, 4, 0xF), 0x00000F0, "set_field: value too wide for field");
+    check(set_field(0x00000000, 4, 4, 0xFFF), 0x00000F0, "set_field: value too wide for field");
     printf("\n");
 
     printf("--Testing sign_extend--\n");
@@ -47,11 +47,16 @@ int main(void) {
     printf("Actual  : Setpoint: %d, Mode: %d, Heat: %d, Cool: %d, Fan: %d, Fault: %d, Reserved: %d\n",
         status.setpoint, status.mode, status.heat, status.cool, status.fan, status.fault, status.reserved);
     
+    status_t status2 = status_unpack(0x0000);
+    printf("Expected: Setpoint: 0, Mode: 0, Heat: 0, Cool: 0, Fan: 0, Fault: 0, Reserved: 0\n");
+    printf("Actual  : Setpoint: %d, Mode: %d, Heat: %d, Cool: %d, Fan: %d, Fault: %d, Reserved: %d\n",
+        status2.setpoint, status2.mode, status2.heat, status2.cool, status2.fan, status2.fault, status2.reserved);
+
     // Testing mode 5, which should force mode 0
-    status_t status2 = status_unpack(0x1651);
+    status_t status3 = status_unpack(0x1651);
     printf("Expected: Mode: 0\n");
     printf("Actual  : Mode: %d\n",
-        status2.mode);
+        status3.mode);
     printf("\n");
 
     printf("--Test Summary--\n");
