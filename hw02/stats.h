@@ -1,4 +1,4 @@
-#ifdef STATS_H
+#ifndef STATS_H
 #define STATS_H
 
 float stats_min(const float a[], int n);
