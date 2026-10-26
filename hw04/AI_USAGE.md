@@ -1,0 +1,4 @@
+* **Tools used:** Gemini
+* **For what:** Generating scaffolding for the test suite and identifying edge cases for string length bounds checking.
+* **One thing a model got wrong:** The model failed to account for the `TALLY_MAX` limit when writing the test suite. It attempted to create a 5th tally (`t_order`) for the print order test without destroying one of the previous 4 tallies first. Because the pool was exhausted, `tally_create` returned `NULL`, which caused the print test to silently fail and the test suite to output `FAIL: print order is alphabetical`.
+* **How I found and fixed it:** I found the error in the terminal output as 18 tests passed and 1 test failed on the final print order test. This was fixed by adding `tally_destroy(t1)` before the print order test to ensure the static pool had space available.
