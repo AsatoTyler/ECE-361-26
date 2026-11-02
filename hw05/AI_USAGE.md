@@ -1,0 +1,3 @@
+- **Tools used:** Gemini
+- **For what:** Generating scaffolding for the test suite, structuring the transition table, and formatting the Makefile targets.
+- **One thing a model got wrong:** The model initially provided an incomplete skeleton for `test_lock.c` that did not include a `main` function. When compiling the test suite with `make test`, this caused an `undefined reference to 'main'` linker error. I found this by reading the compiler output in the terminal and prompting the model to generate the complete test file containing the `int main(void)` entry point and all 16 required table tests.
