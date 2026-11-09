@@ -5,7 +5,7 @@
 
 // Represents a single sensor reading
 typedef struct {
-    time_t t; // Seconds since Unix epoch
+    time_t t;         // Seconds since Unix epoch
     float temp_c;     // Temperature in Celsius
     float rh_pct;     // Relative humidity
 } reading_t;
