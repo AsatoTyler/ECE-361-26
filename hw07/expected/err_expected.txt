@@ -1,0 +1,2 @@
+line 1, column 2: found ']', expected ')'
+exit status 1
