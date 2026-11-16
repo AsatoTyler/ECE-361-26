@@ -1,0 +1,4 @@
+- **Tools used:** Gemini
+- **For what:** Used to the `test_istack.c` unit test suite, the `regress.sh` regression shell script, the `Makefile`, and scenario input and expected txt files. 
+**Debugging compilation errors:** Assisted in diagnosing why the `make test` regression suite was failing across the board in the Ubuntu WSL environment. Identified that the `diff` failures were caused by missing end-of-file newlines and Windows CRLF carriage returns.
+- **One thing a model got wrong:** When initially generating the scenario txt files, the AI did not add newlines to the end of files, causing every regress test to fail.
